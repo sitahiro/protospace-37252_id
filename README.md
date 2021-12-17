@@ -1,6 +1,6 @@
 # テーブル設計
 
-## users テーブル
+## users table
 
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------- |
@@ -11,7 +11,12 @@
 | occupation         | text   | null: false               |
 | position           | text   | null: false               |
 
-## comment テーブル
+### Association
+
+* has_many :prototypes
+* has_many :comments
+
+## comment table
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
@@ -19,7 +24,12 @@
 | prototype | references | null: false, foreign_key: true |
 | user      | references | null: false, foreign_key: true |
 
-## prototype テーブル
+### Association
+
+- belongs_to :user
+- has_many :comments
+
+## prototype table
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
@@ -27,3 +37,8 @@
 | catch_copy| text       | null: false                    |
 | concept   | text       | null: false                    |
 | user      | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :prototype
+- belongs_to :user
