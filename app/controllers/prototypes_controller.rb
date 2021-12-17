@@ -14,36 +14,30 @@ class PrototypesController < ApplicationController
   def create
     @prototype = Prototype.new(prototype_params)
     if @prototype.save
-      redirect_to prototype_path(@comment.prototype)
+      redirect_to root_path
     else
-      @prototype = Prototype.includes(:user)
       render :new
     end
   end
 
   def show
-    @prototype = Prototype.find(params[:id])
     @comment = Comment.new
-    @comments = @prototype.comments.includes(:user)
+    @comments = @prototype.comments
   end
 
   def edit
-    @prototype = Prototype.find(params[:id])
   end
 
   def update
-    prototype = Prototype.find(params[:id])
     prototype.update(prototype_params)
     if prototype.save
       redirect_to prototype_path(prototype.id)
     else
-      prototype = Prototype.includes(:user)
       render :edit
     end
   end
 
   def destroy
-    prototype = Prototype.find(params[:id])
     if @prototype.destroy
       redirect_to root_path
     else
