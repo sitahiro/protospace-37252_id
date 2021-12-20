@@ -31,7 +31,7 @@ class PrototypesController < ApplicationController
   def update
     prototype.update(prototype_params)
     if prototype.save
-      redirect_to prototype_path(prototype.id)
+      redirect_to prototype_path(@prototype)
     else
       render :edit
     end
@@ -47,7 +47,7 @@ class PrototypesController < ApplicationController
 
   private
   def prototype_params
-    params[:prototype].permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
+    params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
 
   def set_prototype
